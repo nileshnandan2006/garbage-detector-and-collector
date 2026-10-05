@@ -1,10 +1,16 @@
-# Netlify Root Blueprint for CleanSight Monorepo
+# Netlify Configuration for CleanSight
 [build]
-  base = "frontend"
+  command = "npm --prefix frontend install && npm --prefix frontend run build && node -e \"const fs=require('fs'); fs.cpSync('frontend/dist', 'dist', {recursive: true});\""
   publish = "dist"
-  command = "npm run build"
 
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+

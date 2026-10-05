@@ -395,6 +395,51 @@ export const ReportPage: React.FC<ReportPageProps> = ({ navigate }) => {
                   onClear={handleClearImage}
                 />
 
+                {/* Quick 1-Click AI Test Samples */}
+                {!previewUrl && (
+                  <div className="pt-2 flex flex-wrap items-center justify-between gap-2 border-t border-slate-100">
+                    <span className="text-[11px] text-slate-500 font-medium">
+                      🧪 Quick AI Test Samples:
+                    </span>
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={async () => {
+                          showToast('Loading Waste Sample for AI Scanning...', 'info');
+                          try {
+                            const res = await fetch('/test_garbage.png');
+                            const blob = await res.blob();
+                            const testFile = new File([blob], 'plastic_waste_bottles.png', { type: 'image/png' });
+                            handleImageSelected(testFile, URL.createObjectURL(blob));
+                          } catch (e) {
+                            showToast('Could not load sample file.', 'error');
+                          }
+                        }}
+                        className="px-2.5 py-1 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 text-[11px] font-bold rounded-lg border border-emerald-200 transition-colors shadow-2xs"
+                      >
+                        🗑️ Test Garbage Detection (Positive)
+                      </button>
+                      <button
+                        type="button"
+                        onClick={async () => {
+                          showToast('Loading Clean Park Sample for AI Scanning...', 'info');
+                          try {
+                            const res = await fetch('/logo.png');
+                            const blob = await res.blob();
+                            const testFile = new File([blob], 'clean_park_scenery.png', { type: 'image/png' });
+                            handleImageSelected(testFile, URL.createObjectURL(blob));
+                          } catch (e) {
+                            showToast('Could not load sample file.', 'error');
+                          }
+                        }}
+                        className="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[11px] font-bold rounded-lg border border-slate-200 transition-colors shadow-2xs"
+                      >
+                        🌿 Test Clean Scene (Negative)
+                      </button>
+                    </div>
+                  </div>
+                )}
+
                 {/* AI Detection Card Result */}
                 {(isScanning || aiDetection) && (
                   <div className="mt-4">

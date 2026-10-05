@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { register, login, firebaseLogin, getCurrentUser, getDemoCredentials } from '../controllers/authController.js';
-import { detectGarbageEndpoint } from '../controllers/aiController.js';
+import { detectGarbageEndpoint, testAiEndpoint } from '../controllers/aiController.js';
 import { createReport, getAllReports, getReportById, verifyReport, assignCollector } from '../controllers/reportController.js';
 import { getCollectorTasks, updateTaskStatus, completeTask } from '../controllers/taskController.js';
 import { getRewardsCatalog, getRewardHistory, redeemReward, getLeaderboard } from '../controllers/rewardController.js';
@@ -21,8 +21,10 @@ router.post('/auth/firebase-login', firebaseLogin);
 router.get('/auth/me', authenticate, getCurrentUser);
 router.get('/auth/demo-users', getDemoCredentials);
 
-// --- AI Detection Route ---
+// --- AI Detection Routes ---
 router.post('/detect-garbage', upload.single('image'), detectGarbageEndpoint);
+router.get('/test-ai', testAiEndpoint);
+router.post('/test-ai', upload.single('image'), testAiEndpoint);
 
 // --- Reports Routes ---
 router.post('/reports', authenticate, upload.single('image'), createReport);

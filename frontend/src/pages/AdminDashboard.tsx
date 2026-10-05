@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext.js';
 import { useNotifications } from '../context/NotificationContext.js';
-import { api } from '../services/api.js';
+import { api, getMediaUrl } from '../services/api.js';
 import { Report, Penalty, Violation, Hotspot } from '../types/index.js';
 import { MapPicker } from '../components/MapPicker.js';
 import { BeforeAfterModal } from '../components/BeforeAfterModal.js';
@@ -302,7 +302,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ navigate }) => {
                         <td className="p-3.5">
                           <div className="flex items-center gap-3">
                             <img
-                              src={rep.image_url}
+                              src={getMediaUrl(rep.image_url)}
                               alt={rep.category}
                               className="w-12 h-12 rounded-xl object-cover border border-slate-200 shrink-0"
                             />

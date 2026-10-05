@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import L from 'leaflet';
 import { Report, Hotspot } from '../types/index.js';
+import { getMediaUrl } from '../services/api.js';
 
 interface MapPickerProps {
   mode?: 'picker' | 'viewer';
@@ -197,7 +198,7 @@ export const MapPicker: React.FC<MapPickerProps> = ({
             <span style="background: ${pinColor}20; color: ${pinColor}; padding: 2px 6px; border-radius: 4px; font-weight: 700;">${rep.status}</span>
           </div>
           <div style="color: #64748b; font-size: 11px; margin-bottom: 6px; line-height: 1.3;">${rep.address}</div>
-          ${rep.image_url ? `<img src="${rep.image_url}" style="width: 100%; height: 90px; object-fit: cover; border-radius: 6px; margin-bottom: 4px;" />` : ''}
+          ${rep.image_url ? `<img src="${getMediaUrl(rep.image_url)}" style="width: 100%; height: 90px; object-fit: cover; border-radius: 6px; margin-bottom: 4px;" />` : ''}
           <div style="font-weight: 600; color: #059669; font-size: 11px;">Reward: +${rep.reward_points} pts</div>
         </div>
       `;

@@ -1,4 +1,13 @@
-const API_BASE = import.meta.env.VITE_API_BASE || '/api';
+export const BACKEND_URL = (import.meta.env.VITE_API_BASE?.replace(/\/api\/?$/, '') || 'https://garbage-detector-and-collector.onrender.com').replace(/\/$/, '');
+export const API_BASE = import.meta.env.VITE_API_BASE || `${BACKEND_URL}/api`;
+
+export function getMediaUrl(path?: string | null): string {
+  if (!path) return '';
+  if (path.startsWith('http://') || path.startsWith('https://') || path.startsWith('blob:') || path.startsWith('data:')) {
+    return path;
+  }
+  return `${BACKEND_URL}${path.startsWith('/') ? '' : '/'}${path}`;
+}
 
 export function getAuthToken(): string | null {
   return localStorage.getItem('cleansight_token');

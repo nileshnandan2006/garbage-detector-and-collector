@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext.js';
 import { useNotifications } from '../context/NotificationContext.js';
-import { api } from '../services/api.js';
+import { api, getMediaUrl } from '../services/api.js';
 import { Report } from '../types/index.js';
 import { MapPicker } from '../components/MapPicker.js';
 import { BeforeAfterModal } from '../components/BeforeAfterModal.js';
@@ -253,7 +253,7 @@ export const CollectorDashboard: React.FC<CollectorDashboardProps> = ({ navigate
                       {/* Image */}
                       <div className="relative w-full sm:w-36 h-36 rounded-2xl overflow-hidden shrink-0 bg-slate-900 border border-slate-100">
                         <img
-                          src={task.image_url}
+                          src={getMediaUrl(task.image_url)}
                           alt={task.category}
                           className="w-full h-full object-cover"
                         />

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { CleaningEvidence, Report } from '../types/index.js';
 import { CheckCircle2, X, Scale, User, Calendar, Clock, Sparkles } from 'lucide-react';
 
+import { getMediaUrl } from '../services/api.js';
+
 interface BeforeAfterModalProps {
   report: Report;
   evidence?: CleaningEvidence | null;
@@ -19,8 +21,8 @@ export const BeforeAfterModal: React.FC<BeforeAfterModalProps> = ({
 }) => {
   const [activeTab, setActiveTab] = useState<'split' | 'before' | 'after'>('split');
 
-  const beforeUrl = evidence?.before_image_url || report.image_url;
-  const afterUrl = evidence?.after_image_url || 'https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=800';
+  const beforeUrl = getMediaUrl(evidence?.before_image_url || report.image_url);
+  const afterUrl = getMediaUrl(evidence?.after_image_url || 'https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=800');
 
   const cleanedDate = evidence?.cleaned_at ? new Date(evidence.cleaned_at) : new Date(report.updated_at);
 

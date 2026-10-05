@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext.js';
-import { api } from '../services/api.js';
+import { api, getMediaUrl } from '../services/api.js';
 import { Report } from '../types/index.js';
 import { ReportTimeline } from '../components/ReportTimeline.js';
 import { BeforeAfterModal } from '../components/BeforeAfterModal.js';
@@ -218,7 +218,7 @@ export const CitizenDashboard: React.FC<CitizenDashboardProps> = ({ navigate }) 
                     <div className="flex gap-4 items-start">
                       {/* Image Thumbnail */}
                       <img
-                        src={report.image_url}
+                        src={getMediaUrl(report.image_url)}
                         alt={report.category}
                         className="w-20 h-20 rounded-xl object-cover shrink-0 border border-slate-100"
                       />
@@ -291,7 +291,7 @@ export const CitizenDashboard: React.FC<CitizenDashboardProps> = ({ navigate }) 
                 {/* Report Image Preview */}
                 <div className="relative rounded-2xl overflow-hidden h-40 border border-slate-100">
                   <img
-                    src={selectedReport.image_url}
+                    src={getMediaUrl(selectedReport.image_url)}
                     alt={selectedReport.category}
                     className="w-full h-full object-cover"
                   />

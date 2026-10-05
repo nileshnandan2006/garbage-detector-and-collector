@@ -113,7 +113,7 @@ export function getPenalties(_req: Request, res: Response) {
 
 export function updatePenaltyStatus(req: Request, res: Response) {
   try {
-    const { id } = req.params;
+    const id = String(req.params.id);
     const { status, amount } = req.body; // status: 'Approved' | 'Paid' | 'Disputed'
     const admin = req.user!;
 

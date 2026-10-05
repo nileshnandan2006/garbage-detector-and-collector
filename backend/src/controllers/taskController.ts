@@ -35,7 +35,7 @@ export function getCollectorTasks(req: Request, res: Response) {
 
 export function updateTaskStatus(req: Request, res: Response) {
   try {
-    const { id } = req.params;
+    const id = String(req.params.id);
     const { status } = req.body; // 'COLLECTOR ON THE WAY' | 'CLEANING IN PROGRESS'
     const collector = req.user!;
     const nowIso = new Date().toISOString();
@@ -74,7 +74,7 @@ export function updateTaskStatus(req: Request, res: Response) {
 
 export function completeTask(req: Request, res: Response) {
   try {
-    const { id } = req.params;
+    const id = String(req.params.id);
     const file = req.file;
     const collector = req.user!;
     const { notes = '', waste_weight_kg = 15.0 } = req.body;

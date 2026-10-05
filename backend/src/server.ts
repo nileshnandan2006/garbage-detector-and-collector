@@ -4,6 +4,7 @@ import path from 'node:path';
 import dotenv from 'dotenv';
 import { initDatabase } from './config/database.js';
 import { seedDatabase } from './seed/seedData.js';
+import { connectMongoDB, isMongoConnected } from './config/mongodb.js';
 import apiRouter from './routes/api.js';
 
 dotenv.config();
@@ -25,6 +26,10 @@ app.get('/api/health', (_req, res) => {
   res.json({
     status: 'online',
     system: 'CleanSight – AI Garbage Detector & Collector',
+    database: {
+      sqlite: 'connected',
+      mongodb: isMongoConnected() ? 'connected' : 'disconnected'
+    },
     timestamp: new Date().toISOString()
   });
 });
@@ -37,6 +42,9 @@ async function startServer() {
   try {
     initDatabase();
     await seedDatabase();
+
+    // Connect to MongoDB if MONGODB_URI is provided
+    await connectMongoDB();
 
     app.listen(PORT, () => {
       console.log(`====================================================`);

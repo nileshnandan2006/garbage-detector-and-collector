@@ -21,7 +21,7 @@ export function getNotifications(req: Request, res: Response) {
 
 export function markAsRead(req: Request, res: Response) {
   try {
-    const { id } = req.params;
+    const id = String(req.params.id);
     const user = req.user!;
 
     db.prepare('UPDATE notifications SET is_read = 1 WHERE id = ? AND user_id = ?').run(id, user.id);

@@ -170,7 +170,7 @@ export function getAllReports(req: Request, res: Response) {
 
 export function getReportById(req: Request, res: Response) {
   try {
-    const { id } = req.params;
+    const id = String(req.params.id);
     const report = db.prepare('SELECT * FROM reports WHERE id = ?').get(id) as any;
 
     if (!report) {
@@ -193,7 +193,7 @@ export function getReportById(req: Request, res: Response) {
 
 export function verifyReport(req: Request, res: Response) {
   try {
-    const { id } = req.params;
+    const id = String(req.params.id);
     const { action, notes, rejection_reason } = req.body; // action: 'VERIFY' | 'REJECT'
     const nowIso = new Date().toISOString();
 
@@ -242,8 +242,8 @@ export function verifyReport(req: Request, res: Response) {
 
 export function assignCollector(req: Request, res: Response) {
   try {
-    const { id } = req.params;
-    const { collector_id } = req.body;
+    const id = String(req.params.id);
+    const collector_id = String(req.body.collector_id);
 
     const collector = db.prepare('SELECT id, name FROM users WHERE id = ? AND role = "collector"').get(collector_id) as any;
     if (!collector) {

@@ -273,5 +273,52 @@ CleanSight uses SQLite tables with foreign key constraints:
 
 ---
 
+## 🚀 Cloud Deployment Guide
+
+CleanSight is pre-configured with blueprints for zero-friction cloud deployment.
+
+### 1. Deploy Backend on Render (Web Service)
+
+1. Log in to [Render](https://dashboard.render.com/) and click **New +** → **Web Service**.
+2. Connect your GitHub repository: `garbage-detector-and-collector`.
+3. Configure settings:
+   - **Name:** `cleansight-backend`
+   - **Root Directory:** `backend`
+   - **Runtime:** `Node`
+   - **Build Command:** `npm install && npm run build`
+   - **Start Command:** `npm start`
+4. In **Environment Variables**, add:
+   - `NODE_ENV` = `production`
+   - `PORT` = `10000`
+   - `JWT_SECRET` = *(Generate a secure random string)*
+   - `MONGODB_URI` = `mongodb+srv://nileshnandan25_db_user:IZ7LC9HDUXkbDFcH@cluster0.ah2ztwo.mongodb.net/cleansight?retryWrites=true&w=majority&appName=Cluster0`
+   - *(Optional)* `GEMINI_API_KEY` = *(Your Google Gemini Vision API key)*
+5. Click **Create Web Service**.  
+   *Your backend API will be live at `https://cleansight-backend.onrender.com`.*
+
+---
+
+### 2. Deploy Frontend on Netlify (Static Site)
+
+1. Log in to [Netlify](https://app.netlify.com/) and click **Add new site** → **Import an existing project**.
+2. Connect your GitHub repository: `garbage-detector-and-collector`.
+3. Netlify will automatically detect [`netlify.toml`](file:///d:/garbage%20dectector%20and%20collector/netlify.toml):
+   - **Base directory:** `frontend`
+   - **Build command:** `npm run build`
+   - **Publish directory:** `dist`
+4. In **Environment Variables** (Site settings → Environment variables), add:
+   - `VITE_API_BASE` = `https://<your-render-backend-url>/api` *(Replace with your Render URL)*
+   - `VITE_FIREBASE_API_KEY` = *(Your Firebase API key)*
+   - `VITE_FIREBASE_AUTH_DOMAIN` = `series-942f9.firebaseapp.com`
+   - `VITE_FIREBASE_PROJECT_ID` = `series-942f9`
+   - `VITE_FIREBASE_STORAGE_BUCKET` = `series-942f9.firebasestorage.app`
+   - `VITE_FIREBASE_MESSAGING_SENDER_ID` = `459831912379`
+   - `VITE_FIREBASE_APP_ID` = `1:459831912379:web:13a11ec7d8ff8a6bf0869e`
+   - `VITE_FIREBASE_MEASUREMENT_ID` = `G-YTVT2G7XZQ`
+5. Click **Deploy Site**.  
+   *Your clean civic platform is live on Netlify with automated continuous deployment!*
+
+---
+
 ## 📄 License
 This project is open-source under the MIT License for Smart India Hackathon and civic innovation initiatives.

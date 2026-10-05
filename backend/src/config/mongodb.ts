@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import dns from 'node:dns';
 import {
   MongoUser,
   MongoReport,
@@ -6,6 +7,13 @@ import {
   MongoReward,
   MongoPenalty
 } from '../models/mongo/index.js';
+
+// Configure reliable DNS servers to ensure MongoDB SRV records resolve cleanly on Windows
+try {
+  dns.setServers(['8.8.8.8', '8.8.4.4', '1.1.1.1']);
+} catch (e) {
+  // Ignore fallback
+}
 
 let isConnected = false;
 
